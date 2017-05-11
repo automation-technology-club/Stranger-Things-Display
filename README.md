@@ -4,6 +4,14 @@ For Midpointe Library West Chester, OHIO July 21 Escape Room Event
 
 A work in progress.
 
+This code is a work in progress. May 5, 2017
+ * Revised May 11, 2017 - for ESP8266, Changed Colors to array, 
+ * function to spell any word you'd like (see code)
+ * modified twinkle routine to just "twinkle" red, moved to it's 
+ * own function.
+ *  
+ *  This code no long works on the UNO, it may work on the MEGA * 
+
 ## Installation
 
 27 ws2812 or ws2811 pixels (Neopixels), connected to PIN 6 of Arduino Uno
