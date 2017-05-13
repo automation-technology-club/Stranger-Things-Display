@@ -14,6 +14,9 @@
  * own function.
  *  
  *  This code no long works on the UNO, it may work on the MEGA * 
+ *  
+ *  May 13, 17 - updated code for WS2811 Pixel strip, these are RGB and 400khz
+ *  
  */
 
 
@@ -24,7 +27,7 @@ int wait = 600; //delay for pixel display
 float redStates[26];
 float fadeRate = 0.96;
 
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(pixels, PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(pixels, PIN, NEO_RGB + NEO_KHZ400);
 
 uint32_t colorArray[26] = {
   strip.Color(105,105,105), //A - white
