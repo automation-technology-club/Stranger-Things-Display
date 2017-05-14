@@ -22,9 +22,10 @@
 
 #include <Adafruit_NeoPixel.h>
 #define PIN 2
-int pixels=26;
+int pixels=50; //total pixels
+int redPixels = 25; //total pixels - 26 = left over pixels for border
 int wait = 600; //delay for pixel display
-float redStates[26];
+float redStates[25]; //this should be the same number as redPixels
 float fadeRate = 0.96;
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(pixels, PIN, NEO_RGB + NEO_KHZ400);
@@ -99,30 +100,37 @@ void clearDisplay() {
 
 void displayLetter(int letter) {
   clearDisplay();
-  Serial.write(letter);
-  Serial.print(" ");
-  Serial.print(letter - 65);
-  Serial.print(" ");
-  Serial.println(letter);
+ 
+  int dletter = letter - 65;
   
-  strip.setPixelColor(letter - 65, colorArray[letter - 65]);
+  if (letter == 73) {dletter = 16;} //I
+  if (letter == 74) {dletter = 15;} //J
+  if (letter == 75) {dletter = 14;} //K
+  if (letter == 76) {dletter = 13;} //L
+  if (letter == 77) {dletter = 12;} //M
+  if (letter == 78) {dletter = 11;} //N
+  if (letter == 79) {dletter = 10;} //O
+  if (letter == 80) {dletter = 9;} //P
+  if (letter == 81) {dletter = 8;} //Q
+  
+  strip.setPixelColor(dletter, colorArray[dletter]);
   strip.show();
   delay(wait);
-  strip.setPixelColor(letter - 65, 0,0,0);
+  strip.setPixelColor(dletter, 0,0,0);
   strip.show();
 }
 
 void twinkle() {
-  for(int i=0;i<=2000;i++) {
+  for(int i=0;i<=1000;i++) {
     if (random(20) == 1) {
-      uint16_t i = random(pixels);
+      uint16_t i = random(redPixels);
       if (redStates[i] < 1 ) {
         redStates[i] = random(256);
       }
     }
     for(uint16_t l = 0; l < pixels; l++) {
       if (redStates[l] > 1 ) {
-        strip.setPixelColor(l, redStates[l], 0, 0);
+        strip.setPixelColor(l+26, redStates[l], 0, 0);
         
         if (redStates[l] > 1) {
           redStates[l] = redStates[l] * fadeRate;
@@ -130,14 +138,14 @@ void twinkle() {
           redStates[l] = 0;
         }
          strip.show();
-    delay(10);
+    delay(5);
   }
 }
   }
 }
 
 void initTwinkle() {
-  for (int i=0; i<=pixels; i++) {
+  for (int i=0; i<=redPixels; i++) {
     
     redStates[i] = 2;
   }
