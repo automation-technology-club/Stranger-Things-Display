@@ -22,10 +22,10 @@
 
 #include <Adafruit_NeoPixel.h>
 #define PIN 2
-int pixels=50; //total pixels
-int redPixels = 25; //total pixels - 26 = left over pixels for border
-int wait = 600; //delay for pixel display
-float redStates[25]; //this should be the same number as redPixels
+int pixels=100; //total pixels
+int redPixels = 74; //total pixels - 26 = left over pixels for border
+int wait = 1000; //delay for pixel display
+float redStates[74]; //this should be the same number as redPixels
 float fadeRate = 0.96;
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(pixels, PIN, NEO_RGB + NEO_KHZ400);
@@ -88,6 +88,7 @@ void loop() {
   displayLetter('E');
   displayLetter('R');
   displayLetter('E');
+ 
   
 }
 
@@ -103,7 +104,7 @@ void displayLetter(int letter) {
  
   int dletter = letter - 65;
   
-  if (letter == 73) {dletter = 16;} //I
+  //if (letter == 73) {dletter = 16;} //I
   if (letter == 74) {dletter = 15;} //J
   if (letter == 75) {dletter = 14;} //K
   if (letter == 76) {dletter = 13;} //L
@@ -121,7 +122,7 @@ void displayLetter(int letter) {
 }
 
 void twinkle() {
-  for(int i=0;i<=1000;i++) {
+  for(int i=0;i<=500;i++) {
     if (random(20) == 1) {
       uint16_t i = random(redPixels);
       if (redStates[i] < 1 ) {
